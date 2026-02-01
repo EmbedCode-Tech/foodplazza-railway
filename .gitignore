@@ -1,0 +1,6 @@
+# Ignore build output
+target/
+*.war
+
+# OS files
+.DS_Store
