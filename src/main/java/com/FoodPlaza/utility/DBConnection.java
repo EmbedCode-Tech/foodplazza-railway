@@ -11,7 +11,7 @@ public class DBConnection {
         try {
             if (con == null || con.isClosed()) {
 
-                String url = "jdbc:mysql://gondola.proxy.rlwy.net:45849/mysql"
+                String url = "jdbc:mysql://gondola.proxy.rlwy.net:45849/FoodPlaza"
                            + "?useSSL=false"
                            + "&allowPublicKeyRetrieval=true"
                            + "&serverTimezone=UTC";
