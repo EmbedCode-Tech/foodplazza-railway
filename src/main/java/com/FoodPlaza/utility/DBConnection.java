@@ -9,9 +9,9 @@ public class DBConnection {
 	static Connection con=null;
 
 	public static Connection getDbConnection() {
-		String url ="jdbc:mysql://localhost:3306/FoodPlaza";
+		String url ="jdbc:mysql://gondola.proxy.rlwy.net:45849/mysql";
 		String user = "root";
-		String password = "root";
+		String password = "DbMPsauaeqoyfHoLVyGfNbSJfLDZpiPd";
 
 
 		try {
