@@ -1,36 +1,30 @@
 package com.FoodPlaza.utility;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
 public class DBConnection {
-	static Connection con=null;
 
-	public static Connection getDbConnection() {
-		String url ="jdbc:mysql://gondola.proxy.rlwy.net:45849/mysql";
-		String user = "root";
-		String password = "DbMPsauaeqoyfHoLVyGfNbSJfLDZpiPd";
+    private static Connection con;
 
+    public static Connection getDbConnection() {
+        try {
+            if (con == null || con.isClosed()) {
 
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+                String url = System.getenv("DB_URL");
+                String user = System.getenv("DB_USER");
+                String pass = System.getenv("DB_PASSWORD");
 
-		try {
-			con =DriverManager.getConnection(url , user , password);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+                if (url == null || user == null || pass == null) {
+                    throw new RuntimeException("Database environment variables not set");
+                }
 
-		return con;
-
-
-	}
-
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                con = DriverManager.getConnection(url, user, pass);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return con;
+    }
 }
