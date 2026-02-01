@@ -1,6 +1,12 @@
-# Ignore build output
-target/
-*.war
+# Ignore class files
+*.class
 
-# OS files
-.DS_Store
+# Ignore logs
+*.log
+
+# Ignore Maven downloaded dependencies
+/.m2/
+
+# Keep target folder except WAR
+/target/*
+!/target/FoodPlazaAdvance.war
