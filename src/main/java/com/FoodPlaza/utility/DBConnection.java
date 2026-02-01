@@ -6,25 +6,29 @@ import java.sql.DriverManager;
 public class DBConnection {
 
     private static Connection con;
+public static Connection getDbConnection() {
+    try {
+        String url = System.getenv("DB_URL");
+        String user = System.getenv("DB_USER");
+        String pass = System.getenv("DB_PASSWORD");
 
-    public static Connection getDbConnection() {
-        try {
-            if (con == null || con.isClosed()) {
+        System.out.println("DB_URL = " + url);
+        System.out.println("DB_USER = " + user);
+        System.out.println("DB_PASSWORD = " + (pass != null));
 
-                String url = System.getenv("DB_URL");
-                String user = System.getenv("DB_USER");
-                String pass = System.getenv("DB_PASSWORD");
-
-                if (url == null || user == null || pass == null) {
-                    throw new RuntimeException("Database environment variables not set");
-                }
-
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                con = DriverManager.getConnection(url, user, pass);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (url == null || user == null || pass == null) {
+            throw new RuntimeException("ENV VARIABLES ARE NULL");
         }
-        return con;
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        con = DriverManager.getConnection(url, user, pass);
+
+        System.out.println("✅ DATABASE CONNECTED SUCCESSFULLY");
+
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+    return con;
+}
+
 }
