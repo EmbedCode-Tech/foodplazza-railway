@@ -6,29 +6,25 @@ import java.sql.DriverManager;
 public class DBConnection {
 
     private static Connection con;
-public static Connection getDbConnection() {
-    try {
-        String url = System.getenv("DB_URL");
-        String user = System.getenv("DB_USER");
-        String pass = System.getenv("DB_PASSWORD");
 
-        System.out.println("DB_URL = " + url);
-        System.out.println("DB_USER = " + user);
-        System.out.println("DB_PASSWORD = " + (pass != null));
+    public static Connection getDbConnection() {
+        try {
+            if (con == null || con.isClosed()) {
 
-        if (url == null || user == null || pass == null) {
-            throw new RuntimeException("ENV VARIABLES ARE NULL");
+                String url = "jdbc:mysql://gondola.proxy.rlwy.net:45849/mysql"
+                           + "?useSSL=false"
+                           + "&allowPublicKeyRetrieval=true"
+                           + "&serverTimezone=UTC";
+
+                String user = "root";
+                String password = "DbMPsauaeqoyfHoLVyGfNbSJfLDZpiPd";
+
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                con = DriverManager.getConnection(url, user, password);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        con = DriverManager.getConnection(url, user, pass);
-
-        System.out.println("✅ DATABASE CONNECTED SUCCESSFULLY");
-
-    } catch (Exception e) {
-        e.printStackTrace();
+        return con;
     }
-    return con;
-}
-
 }
